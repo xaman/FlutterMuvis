@@ -25,6 +25,24 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+   - assets/bg_splash.png
+   - assets/ic_detail_rating.png
+   - assets/ic_empty_favorite.png
+   - assets/ic_empty_films.png
+   - assets/ic_empty_search.png
+   - assets/ic_fab_fav.png
+   - assets/ic_fab_unfav.png
+   - assets/ic_favorites.png
+   - assets/ic_filter.png
+   - assets/ic_movie_rating.png
+   - assets/ic_movies.png
+   - assets/ic_search.png
+   - assets/img_play_button.png
+   - assets/search.png
+   - assets/splash_logo.png
+   - assets/toolbar_logo.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
