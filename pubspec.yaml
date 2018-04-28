@@ -1,5 +1,5 @@
 name: fluttermuvis
-description: A new Flutter project.
+description: A port of my Kotlin side-project Muvis.
 
 dependencies:
   flutter:

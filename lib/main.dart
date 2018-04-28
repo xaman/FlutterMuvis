@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'presentation/splash_page.dart';
+import 'package:fluttermuvis/presentation/res/theme_colors.dart';
+
+import 'presentation/pages/splash_page.dart';
 
 void main() => runApp(new MyApp());
 
@@ -19,7 +21,9 @@ class MyApp extends StatelessWidget {
         // "hot reload" (press "r" in the console where you ran "flutter run",
         // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
         // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.red,
+        primaryColor: ThemeColors.strawberry,
+        primaryColorDark: ThemeColors.watermelon,
+        accentColor: ThemeColors.lemon
       ),
       home: new SplashPage(),
     );
