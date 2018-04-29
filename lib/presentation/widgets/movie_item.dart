@@ -23,13 +23,9 @@ class MovieItem extends StatelessWidget {
     return new Card(
       child: new InkWell(
         child: new Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            new Stack(
-              children: <Widget>[
-                new Material(color: ThemeColors.silver),
-                new Image.network(_getPictureUrl(), fit: BoxFit.cover)
-              ],
+            new Expanded(
+              child: new Image.network(_getPictureUrl(), fit: BoxFit.cover)
             ),
             new MovieItemDetail(_movie),
           ],

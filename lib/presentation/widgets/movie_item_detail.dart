@@ -21,26 +21,23 @@ class MovieItemDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Expanded(
-      child: new Padding(
-        padding: new EdgeInsets.all(_DESCRIPTION_PADDING),
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(_movie.title, maxLines: _MAX_TITLE_LINES, overflow: TextOverflow.ellipsis, style: _getTitleStyle(),),
-            new Padding(padding: new EdgeInsets.only(bottom: _PADDING_BELOW_TITLE)),
-            new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new Text(_movie.releaseYear, style: _getYearStyle()),
-                ),
-                new Image.asset(Drawables.IC_MOVIE_RATING, height: _RATING_ICON_SIZE),
-                new Text(_movie.votesAverage.toString(), style: _getRatingStyle())
-              ],
-            ),
-          ],
-        ),
+    return new Padding(
+      padding: new EdgeInsets.all(_DESCRIPTION_PADDING),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Text(_movie.title, maxLines: _MAX_TITLE_LINES, overflow: TextOverflow.ellipsis, style: _getTitleStyle(),),
+          new Padding(padding: new EdgeInsets.only(bottom: _PADDING_BELOW_TITLE)),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                child: new Text(_movie.releaseYear, style: _getYearStyle()),
+              ),
+              new Image.asset(Drawables.IC_MOVIE_RATING, height: _RATING_ICON_SIZE),
+              new Text(_movie.votesAverage.toString(), style: _getRatingStyle())
+            ],
+          ),
+        ],
       ),
     );
   }
