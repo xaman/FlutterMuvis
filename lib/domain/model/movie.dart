@@ -32,7 +32,16 @@ class Movie {
 
   String get overview => _overview;
 
-  String get releaseDate => _releaseDate;
+  DateTime get releaseDate {
+    try {
+      return DateTime.parse(_releaseDate);
+    } catch (exception) {}
+    return null;
+  }
+
+  String get releaseYear {
+    return releaseDate != null ? releaseDate.year.toString() : "";
+  }
 
   bool get forAdults => _forAdults;
 

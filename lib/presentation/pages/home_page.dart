@@ -5,6 +5,7 @@ import '../res/drawables.dart';
 
 import '../widgets/empty_view.dart';
 import '../widgets/home_bottom_navigation_bar.dart';
+import '../widgets/movies_grid_view.dart';
 
 import '../../domain/model/movie.dart';
 import '../../domain/interactor/get_movies.dart';
@@ -19,6 +20,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<Movie> _movies = new List();
+  BuildContext _scaffoldContext;
 
   @override
   void initState() {
@@ -36,16 +40,44 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: ThemeColors.strawberry,
           title: new Image.asset(Drawables.TOOLBAR_LOGO, height: _TOOLBAR_LOGO_HEIGHT)
       ),
-      body: new EmptyView(Drawables.IC_EMPTY_MOVIES, "Where are the movies?"),
+      body: new Builder(builder: (context) {
+        _scaffoldContext = context;
+        return _getBody();
+      }),
       bottomNavigationBar: new HomeBottomNavigationBar(),
     );
   }
 
 
+  Widget _getBody() => _movies.isEmpty ? _getEmptyView() : _getMoviesGrid();
+
+  Widget _getEmptyView() => new EmptyView(Drawables.IC_EMPTY_MOVIES, "Where are the movies?");
+
+  Widget _getMoviesGrid() => new MoviesGridView(_movies, _handleMovieClick);
+
   void _handleMoviesLoadSuccess(List<Movie> movies) {
-    for (var movie in movies) { print(movie); }
+    this.setState(() {
+      _movies = movies;
+    });
   }
 
-  void _handleMoviesLoadError(Exception exception) {}
+  void _handleMoviesLoadError(Exception exception) {
+    this.setState(() {
+      _movies = new List();
+    });
+  }
+
+  void _handleMovieClick(Movie movie) {
+    _showSnackbar("Clicked on ${movie.title}");
+  }
+
+  void _showSnackbar(String text) {
+    Scaffold.of(_scaffoldContext).showSnackBar(
+      new SnackBar(
+        content: new Text(text),
+        duration: new Duration(milliseconds: 500),
+      )
+    );
+  }
 
 }
