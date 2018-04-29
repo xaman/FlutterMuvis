@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../res/theme_colors.dart';
 
-const double _ICON_HEIGHT = 150.0;
+const double _ICON_HEIGHT = 100.0;
+const double _PADDING = 20.0;
+const double _FONT_SIZE = 20.0;
 
 class EmptyView extends StatelessWidget {
 
@@ -23,10 +25,10 @@ class EmptyView extends StatelessWidget {
               iconAsset,
               height: _ICON_HEIGHT,
             ),
-            new Padding(padding: new EdgeInsets.only(bottom: 10.0)),
+            new Padding(padding: new EdgeInsets.only(bottom: _PADDING)),
             new Text(
               message,
-              style: new TextStyle(color: ThemeColors.ash, fontSize: 25.0),
+              style: new TextStyle(color: ThemeColors.ash, fontSize: _FONT_SIZE),
             )
           ],
         ),

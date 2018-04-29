@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: ThemeColors.strawberry,
-        title: new Image.asset(Drawables.TOOLBAR_LOGO, height: _TOOLBAR_LOGO_HEIGHT,)
+        title: new Image.asset(Drawables.TOOLBAR_LOGO, height: _TOOLBAR_LOGO_HEIGHT)
       ),
       body: new EmptyView(Drawables.IC_EMPTY_MOVIES, "Where are the movies?"),
       bottomNavigationBar: new HomeBottomNavigationBar(),
