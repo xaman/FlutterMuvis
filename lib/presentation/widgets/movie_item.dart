@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/model/movie.dart';
-
-import '../../config.dart';
-
-import '../res/theme_colors.dart';
-
-import 'movie_item_detail.dart';
+import 'package:fluttermuvis/config.dart';
+import 'package:fluttermuvis/domain/model/movie.dart';
+import 'package:fluttermuvis/presentation/res/theme_colors.dart';
+import 'package:fluttermuvis/presentation/res/drawables.dart';
+import 'package:fluttermuvis/presentation/widgets/movie_item_detail.dart';
 
 
 const String _PICTURE_SIZE = "w185";
@@ -24,8 +22,12 @@ class MovieItem extends StatelessWidget {
       child: new InkWell(
         child: new Column(
           children: <Widget>[
-            new Expanded(
-              child: new Image.network(_getPictureUrl(), fit: BoxFit.cover)
+            new Stack(
+              children: <Widget>[
+                new Material(color: Colors.black12),
+                new Image.asset(Drawables.DEFAULT_MOVIE),
+                new Image.network(_getPictureUrl(), fit: BoxFit.cover),
+              ],
             ),
             new MovieItemDetail(_movie),
           ],

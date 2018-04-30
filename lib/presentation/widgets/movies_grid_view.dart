@@ -5,7 +5,7 @@ import 'movie_item.dart';
 import '../../domain/model/movie.dart';
 
 const int _NUM_COLUMNS = 3;
-const double _ITEM_ASPECT_RATIO = 1/2;
+const double _ITEM_ASPECT_RATIO = 100/200;
 
 class MoviesGridView extends StatelessWidget {
 
