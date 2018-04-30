@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primaryColor: ThemeColors.strawberry,
         primaryColorDark: ThemeColors.watermelon,
-        accentColor: ThemeColors.lemon
+        accentColor: ThemeColors.watermelon
       ),
       home: new SplashPage(),
     );

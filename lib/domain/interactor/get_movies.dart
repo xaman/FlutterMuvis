@@ -12,7 +12,9 @@ class GetMovies extends Interactor<List<Movie>> {
 
   GetMovies(this._repository);
 
+  int page = 1;
+
   @override
-  Future<List<Movie>> execute() => _repository.getMovies();
+  Future<List<Movie>> execute() => _repository.getMovies(page);
 
 }

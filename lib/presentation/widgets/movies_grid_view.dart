@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/domain/model/movie.dart';
-import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/widgets/movie_item.dart';
 
 
@@ -17,15 +16,12 @@ class MoviesGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Theme(
-      data: Theme.of(context).copyWith(accentColor: ThemeColors.watermelon),
-      child: new GridView.count(
-          crossAxisCount: _NUM_COLUMNS,
-          childAspectRatio: _ITEM_ASPECT_RATIO,
-          children: new List.generate(_movies.length, (index) {
-            return new MovieItem(_movies[index], _onMovieClick);
-          })
-      )
+    return new GridView.count(
+      crossAxisCount: _NUM_COLUMNS,
+      childAspectRatio: _ITEM_ASPECT_RATIO,
+      children: new List.generate(_movies.length, (index) {
+        return new MovieItem(_movies[index], _onMovieClick);
+      })
     );
   }
 
