@@ -16,7 +16,7 @@ class SplashPage extends StatelessWidget {
         child: new Container(
           decoration: new BoxDecoration(
             image: new DecorationImage(
-              image: AssetImage(Drawables.SPLASH_BG)
+              image: new AssetImage(Drawables.SPLASH_BG)
             ),
           ),
           child: new Center(
