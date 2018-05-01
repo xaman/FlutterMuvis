@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'interactor.dart';
-
-import '../../data/repository.dart';
-
-import '../model/movie.dart';
+import 'package:fluttermuvis/data/repository.dart';
+import 'package:fluttermuvis/domain/interactor/interactor.dart';
+import 'package:fluttermuvis/domain/model/movie.dart';
 
 class GetMovies extends Interactor<List<Movie>> {
 

@@ -1,5 +1,5 @@
-import 'genre.dart';
-import 'country.dart';
+import 'package:fluttermuvis/domain/model/genre.dart';
+import 'package:fluttermuvis/domain/model/country.dart';
 
 class Detail {
   int budget;

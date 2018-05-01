@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/model/movie.dart';
-
-import '../res/theme_colors.dart';
-import '../res/drawables.dart';
+import 'package:fluttermuvis/domain/model/movie.dart';
+import 'package:fluttermuvis/presentation/res/theme_colors.dart';
+import 'package:fluttermuvis/presentation/res/drawables.dart';
 
 
 const double _DESCRIPTION_PADDING = 5.0;

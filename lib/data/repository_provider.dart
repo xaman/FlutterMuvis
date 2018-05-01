@@ -1,5 +1,5 @@
-import 'repository.dart';
-import 'api.dart';
+import 'package:fluttermuvis/data/repository.dart';
+import 'package:fluttermuvis/data/api.dart';
 
 class RepositoryProvider {
 

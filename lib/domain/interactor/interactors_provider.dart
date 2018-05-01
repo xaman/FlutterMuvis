@@ -1,6 +1,5 @@
-import 'get_movies.dart';
-
-import '../../data/repository_provider.dart';
+import 'package:fluttermuvis/data/repository_provider.dart';
+import 'package:fluttermuvis/domain/interactor/get_movies.dart';
 
 class InteractorsProvider {
 

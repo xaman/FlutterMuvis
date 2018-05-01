@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'api.dart';
-
-import '../domain/model/movie.dart';
+import 'package:fluttermuvis/data/api.dart';
+import 'package:fluttermuvis/domain/model/movie.dart';
 
 const int _DEFAULT_YEAR = 2017;
 

@@ -1,4 +1,4 @@
-import 'detail.dart';
+import 'package:fluttermuvis/domain/model/detail.dart';
 
 class Movie {
 

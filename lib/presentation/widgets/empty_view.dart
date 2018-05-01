@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../res/theme_colors.dart';
+import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 
 const double _ICON_HEIGHT = 100.0;
 const double _PADDING = 20.0;

@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
-import '../config.dart';
-
-import 'movies_parser.dart';
-
-import '../domain/model/movie.dart';
+import 'package:fluttermuvis/config.dart';
+import 'package:fluttermuvis/data/movies_parser.dart';
+import 'package:fluttermuvis/domain/model/movie.dart';
 
 
 class Api {
