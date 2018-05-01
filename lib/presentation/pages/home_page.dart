@@ -15,7 +15,6 @@ const int _NUM_PAGES = 2;
 const int _SNACKBAR_DURATION = 500;
 const int _PAGE_CHANGE_DURATION = 300;
 const double _TOOLBAR_LOGO_HEIGHT = 30.0;
-const double _OFFSET_TO_REFRESH = 1000.0;
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,17 +23,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  int _moviesPagination = 1;
-  bool _isLoading;
-  int _currentPagePosition;
-  List<Movie> _movies = new List();
   BuildContext _scaffoldContext;
   PageController _controller;
+  bool _isLoading;
+  int _moviesPagination;
+  double _moviesScrollPosition;
+  int _currentPagePosition;
+  List<Movie> _movies;
 
   @override
   void initState() {
     super.initState();
+    _isLoading = false;
+    _moviesPagination = 1;
+    _moviesScrollPosition = 0.0;
     _currentPagePosition = 0;
+    _movies = new List();
     _controller = new PageController(initialPage: _currentPagePosition);
     _loadMovies();
   }
@@ -58,15 +62,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createPager() {
-    return new NotificationListener(
-      onNotification: _handleScrollChange,
-      child: new PageView.builder(
-        physics: new AlwaysScrollableScrollPhysics(),
-        controller: _controller,
-        onPageChanged: _handlePageChange,
-        itemBuilder: (context, index) => _createPage(index),
-        itemCount: _NUM_PAGES,
-      )
+    return new PageView.builder(
+      physics: new AlwaysScrollableScrollPhysics(),
+      controller: _controller,
+      onPageChanged: _handlePageChange,
+      itemBuilder: (context, index) => _createPage(index),
+      itemCount: _NUM_PAGES,
     );
   }
 
@@ -78,14 +79,24 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createEmptyView() => new EmptyView(Drawables.IC_EMPTY_MOVIES, "Where are the movies?");
 
-  Widget _createMoviesGrid() => new MoviesGridView(_movies, _handleMovieClick);
+  Widget _createMoviesGrid() => new MoviesGridView(
+    _movies,
+    _handleMovieClick,
+    _moviesScrollPosition,
+    _onMoviesScrollChange,
+    _onMoviesListBottom
+  );
 
   Widget _createFavoritesEmpty() => new EmptyView(Drawables.IC_EMPTY_FAVORITES, "What is your favorite movie?");
 
   void _handleMovieClick(Movie movie) {
     _showSnackbar("Clicked on ${movie.title}");
   }
-  
+
+  void _onMoviesScrollChange(double offset) => _moviesScrollPosition = offset;
+
+  void _onMoviesListBottom() => _loadMovies();
+
   void _handleNavigationItemSelected(int position) {
     _controller.animateToPage(
       position,
@@ -98,18 +109,6 @@ class _HomePageState extends State<HomePage> {
     this.setState((){
       _currentPagePosition = position;
     });
-  }
-
-  bool _handleScrollChange(Notification notification) {
-    if (notification is ScrollUpdateNotification) {
-      ScrollMetrics metrics = notification.metrics;
-      num pixelsToEnd = metrics.maxScrollExtent - metrics.pixels;
-      if (pixelsToEnd < _OFFSET_TO_REFRESH && !_isLoading) {
-        _loadMovies();
-      }
-      return true;
-    }
-    return false;
   }
 
   void _loadMovies() {
