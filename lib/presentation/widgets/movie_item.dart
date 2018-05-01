@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/config.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
-import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 import 'package:fluttermuvis/presentation/widgets/movie_item_detail.dart';
 
@@ -24,9 +23,8 @@ class MovieItem extends StatelessWidget {
           children: <Widget>[
             new Stack(
               children: <Widget>[
-                new Material(color: Colors.black12),
                 new Image.asset(Drawables.DEFAULT_MOVIE),
-                new Image.network(_getPictureUrl(), fit: BoxFit.cover),
+                new Image.network(_getPictureUrl(), fit: BoxFit.cover, scale: 0.5),
               ],
             ),
             new MovieItemDetail(_movie),
