@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
-import 'package:fluttermuvis/presentation/widgets/movie_item.dart';
+import 'package:fluttermuvis/presentation/pages/home/movie_item.dart';
 
 
 const double _ITEM_MAX_WIDTH = 150.0;

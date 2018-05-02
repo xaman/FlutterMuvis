@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluttermuvis/config.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
-import 'package:fluttermuvis/presentation/widgets/movie_item_detail.dart';
-
-
-const String _PICTURE_SIZE = "w185";
+import 'package:fluttermuvis/presentation/pages/home/movie_item_description.dart';
 
 class MovieItem extends StatelessWidget {
 
@@ -24,19 +20,16 @@ class MovieItem extends StatelessWidget {
             new Stack(
               children: <Widget>[
                 new Image.asset(Drawables.DEFAULT_MOVIE),
-                new Image.network(_getPictureUrl(), fit: BoxFit.cover, scale: 0.5),
+                new Image.network(_movie.posterPath, fit: BoxFit.cover, scale: 0.5),
               ],
             ),
-            new MovieItemDetail(_movie),
+            new MovieItemDescription(_movie),
           ],
         ),
         onTap: () => _onMovieClick(_movie),
       )
     );
   }
-
-  String _getPictureUrl() => Config.PICTURE_URL + _PICTURE_SIZE + _movie.posterPath;
-
 }
 
 typedef void OnMovieClickListener(Movie movie);

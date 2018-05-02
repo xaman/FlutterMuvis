@@ -6,15 +6,16 @@ import 'package:fluttermuvis/domain/interactor/interactors_provider.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 import 'package:fluttermuvis/presentation/widgets/empty_view.dart';
-import 'package:fluttermuvis/presentation/widgets/home_bottom_navigation_bar.dart';
-import 'package:fluttermuvis/presentation/widgets/movies_grid_view.dart';
+import 'package:fluttermuvis/presentation/pages/home/home_bottom_navigation_bar.dart';
+import 'package:fluttermuvis/presentation/pages/home/movies_grid_view.dart';
 import 'package:fluttermuvis/presentation/widgets/toolbar_progress.dart';
+import 'package:fluttermuvis/presentation/pages/detail/detail_page.dart';
 
 
 const int _NUM_PAGES = 2;
-const int _SNACKBAR_DURATION = 500;
 const int _PAGE_CHANGE_DURATION = 300;
 const double _TOOLBAR_LOGO_HEIGHT = 30.0;
+const int _SNACKBAR_DURATION = 500;
 
 class HomePage extends StatefulWidget {
   @override
@@ -89,10 +90,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createFavoritesEmpty() => new EmptyView(Drawables.IC_EMPTY_FAVORITES, "What is your favorite movie?");
 
-  void _handleMovieClick(Movie movie) {
-    _showSnackbar("Clicked on ${movie.title}");
-  }
-
   void _onMoviesScrollChange(double offset) => _moviesScrollPosition = offset;
 
   void _onMoviesListBottom() => _loadMovies();
@@ -130,16 +127,19 @@ class _HomePageState extends State<HomePage> {
   void _handleMoviesLoadError(Exception exception) {
     this.setState((){
       _isLoading = false;
-      _movies = new List();
     });
+  }
+
+  void _handleMovieClick(Movie movie) {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (_) => new DetailPage(movie)));
   }
 
   void _showSnackbar(String text) {
     Scaffold.of(_scaffoldContext).showSnackBar(
-      new SnackBar(
-        content: new Text(text),
-        duration: new Duration(milliseconds: _SNACKBAR_DURATION),
-      )
+        new SnackBar(
+          content: new Text(text),
+          duration: new Duration(milliseconds: _SNACKBAR_DURATION),
+        )
     );
   }
 

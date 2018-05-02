@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:fluttermuvis/presentation/pages/home_page.dart';
+import 'package:fluttermuvis/presentation/pages/home/home_page.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 
 

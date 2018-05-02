@@ -12,11 +12,11 @@ const double _YEAR_SIZE = 12.0;
 const double _RATING_ICON_SIZE = 18.0;
 const int _MAX_TITLE_LINES = 2;
 
-class MovieItemDetail extends StatelessWidget {
+class MovieItemDescription extends StatelessWidget {
 
   final Movie _movie;
 
-  MovieItemDetail(this._movie);
+  MovieItemDescription(this._movie);
 
   @override
   Widget build(BuildContext context) {

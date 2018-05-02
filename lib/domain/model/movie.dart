@@ -1,4 +1,8 @@
 import 'package:fluttermuvis/domain/model/detail.dart';
+import 'package:fluttermuvis/config.dart';
+
+const String _POSTER_SIZE = "w185";
+const String _BACKDROP_SIZE = "w780";
 
 class Movie {
 
@@ -51,13 +55,17 @@ class Movie {
 
   double get votesAverage => _votesAverage;
 
-  String get posterPath => _posterPath;
-
-  String get backdropPath => _backdropPath;
-
   bool get isFavourite => _isFavourite;
 
   Detail get detail => _detail;
+
+  String get posterPath {
+    return Config.PICTURE_URL + _POSTER_SIZE + _posterPath;
+  }
+
+  String get backdropPath {
+    return Config.PICTURE_URL + _BACKDROP_SIZE + _backdropPath;
+  }
 
   @override
   String toString() {

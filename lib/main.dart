@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
-import 'package:fluttermuvis/presentation/pages/splash_page.dart';
+import 'package:fluttermuvis/presentation/pages/splash/splash_page.dart';
 
 void main() => runApp(new MyApp());
 
