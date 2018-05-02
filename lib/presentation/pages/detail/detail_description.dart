@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
@@ -13,6 +14,7 @@ const double _HORIZONTAL_PADDING = 10.0;
 const double _VERTICAL_PADDING = 5.0;
 const double _RATING_STAR_SIZE = 25.0;
 const double _RATING_FONT_SIZE = 20.0;
+const int _FADE_IN_DURATION = 100;
 
 class DetailDescription extends StatelessWidget {
 
@@ -106,9 +108,18 @@ class _DetailPoster extends StatelessWidget {
       child: new SizedBox(
         width: _POSTER_WIDTH,
         height: _POSTER_HEIGHT,
-        child: new Image.network(_posterPath, fit: BoxFit.cover, scale: 0.5),
+        child: new CachedNetworkImage(
+          imageUrl: _posterPath,
+          placeholder: _getPosterPlaceHolder(),
+          errorWidget: _getPosterPlaceHolder(),
+          fadeInDuration: new Duration(milliseconds: _FADE_IN_DURATION),
+        )
       )
     );
+  }
+
+  Widget _getPosterPlaceHolder() {
+    return new Image.asset(Drawables.DEFAULT_MOVIE, fit: BoxFit.cover);
   }
 
 }
