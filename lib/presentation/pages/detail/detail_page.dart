@@ -7,6 +7,8 @@ import 'package:fluttermuvis/presentation/pages/detail/detail_description.dart';
 
 const double _OVERVIEW_SIZE = 18.0;
 const double _OVERVIEW_PADDING = 15.0;
+const int _OVERVIEW_COLLAPSED_LINES = 5;
+const int _OVERVIEW_EXPANDED_LINES = 100;
 
 class DetailPage extends StatefulWidget {
 
@@ -21,6 +23,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
 
   BuildContext _scaffoldContext;
+  bool _isOverviewCollapsed = true;
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +45,31 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget _getOverview() {
-    return new Padding(
-      padding: new EdgeInsets.all(_OVERVIEW_PADDING),
-      child: new Text(
-        widget._movie.overview,
-        style: new TextStyle(
-          color: ThemeColors.ash,
-          fontSize: _OVERVIEW_SIZE,
+    return new InkWell(
+      onTap: _onOverviewTap,
+      child: new Padding(
+        padding: new EdgeInsets.all(_OVERVIEW_PADDING),
+        child: new Text(
+          widget._movie.overview,
+          maxLines: _getOverviewMaxLines(),
+          overflow: TextOverflow.ellipsis,
+          style: new TextStyle(
+            color: ThemeColors.ash,
+            fontSize: _OVERVIEW_SIZE,
+          ),
         ),
-      ),
+      )
     );
+  }
+
+  void _onOverviewTap() {
+    setState(() {
+      _isOverviewCollapsed =! _isOverviewCollapsed;
+    });
+  }
+
+  int _getOverviewMaxLines() {
+    return _isOverviewCollapsed ? _OVERVIEW_COLLAPSED_LINES : _OVERVIEW_EXPANDED_LINES;
   }
 
 }
