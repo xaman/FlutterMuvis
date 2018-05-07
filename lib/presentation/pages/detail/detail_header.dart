@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 
-const double _HEIGHT = 250.0;
+const double _HEIGHT = 200.0;
 const double _PADDING = 50.0;
 const int _FADE_IN_DURATION = 100;
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
+import 'package:fluttermuvis/presentation/widgets/poster_hero.dart';
 
 const double _DETAIL_PADDING = 10.0;
 const double _POSTER_HEIGHT = 150.0;
@@ -84,7 +85,12 @@ class DetailDescription extends StatelessWidget {
       child: new SizedBox(
         width: _POSTER_WIDTH,
         height: _POSTER_HEIGHT,
-        child: new Image.network(path)
+        child: new Stack(
+          children: <Widget>[
+            new Image.asset(Drawables.DEFAULT_MOVIE),
+            new PosterHero(_movie.posterPath),
+          ]
+        )
       )
     );
   }
