@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/domain/model/movie.dart';
+import 'package:fluttermuvis/domain/model/backdrop_size.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_header.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_description.dart';
@@ -9,6 +12,7 @@ const double _OVERVIEW_SIZE = 18.0;
 const double _OVERVIEW_PADDING = 15.0;
 const int _OVERVIEW_COLLAPSED_LINES = 5;
 const int _OVERVIEW_EXPANDED_LINES = 100;
+const int _BIG_BACKDROP_DELAY = 1000;
 
 class DetailPage extends StatefulWidget {
 
@@ -24,6 +28,13 @@ class _DetailPageState extends State<DetailPage> {
 
   BuildContext _scaffoldContext;
   bool _isOverviewCollapsed = true;
+  BackdropSize _backdropSize = BackdropSize.SMALL;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBigBackdropWithDelay();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +45,7 @@ class _DetailPageState extends State<DetailPage> {
         return new SingleChildScrollView(
           child: new Column(
             children: <Widget>[
-              new DetailHeader(widget._movie.backdropPath),
+              new DetailHeader(widget._movie.getBackdropPath(_backdropSize)),
               new DetailDescription(widget._movie),
               _getOverview(),
             ],
@@ -65,6 +76,14 @@ class _DetailPageState extends State<DetailPage> {
   void _onOverviewTap() {
     setState(() {
       _isOverviewCollapsed =! _isOverviewCollapsed;
+    });
+  }
+
+  void _loadBigBackdropWithDelay() {
+    new Future.delayed(new Duration(milliseconds: _BIG_BACKDROP_DELAY), () {
+      setState(() {
+        _backdropSize = BackdropSize.BIG;
+      });
     });
   }
 

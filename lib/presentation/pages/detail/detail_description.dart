@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
@@ -14,7 +13,6 @@ const double _HORIZONTAL_PADDING = 10.0;
 const double _VERTICAL_PADDING = 5.0;
 const double _RATING_STAR_SIZE = 25.0;
 const double _RATING_FONT_SIZE = 20.0;
-const int _FADE_IN_DURATION = 100;
 
 class DetailDescription extends StatelessWidget {
 
@@ -29,7 +27,7 @@ class DetailDescription extends StatelessWidget {
         padding: new EdgeInsets.all(_DETAIL_PADDING),
         child: new Row(
           children: <Widget>[
-            new _DetailPoster(_movie.posterPath),
+            _createPoster(_movie.posterPath),
             _getHorizontalPadding(),
             new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +78,17 @@ class DetailDescription extends StatelessWidget {
     );
   }
 
+  Widget _createPoster(String path) {
+    return new Card(
+      color: ThemeColors.silver,
+      child: new SizedBox(
+        width: _POSTER_WIDTH,
+        height: _POSTER_HEIGHT,
+        child: new Image.network(path)
+      )
+    );
+  }
+
   Widget _getVerticalPadding() {
     return new Padding(padding: new EdgeInsets.only(bottom: _VERTICAL_PADDING));
   }
@@ -91,35 +100,6 @@ class DetailDescription extends StatelessWidget {
   double _getTitleMaxWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return screenWidth - _POSTER_WIDTH - (2 * _DETAIL_PADDING) - _HORIZONTAL_PADDING - 10;
-  }
-
-}
-
-class _DetailPoster extends StatelessWidget {
-
-  final String _posterPath;
-
-  _DetailPoster(this._posterPath);
-
-  @override
-  Widget build(BuildContext context) {
-    return new Card(
-      color: ThemeColors.silver,
-      child: new SizedBox(
-        width: _POSTER_WIDTH,
-        height: _POSTER_HEIGHT,
-        child: new CachedNetworkImage(
-          imageUrl: _posterPath,
-          placeholder: _getPosterPlaceHolder(),
-          errorWidget: _getPosterPlaceHolder(),
-          fadeInDuration: new Duration(milliseconds: _FADE_IN_DURATION),
-        )
-      )
-    );
-  }
-
-  Widget _getPosterPlaceHolder() {
-    return new Image.asset(Drawables.DEFAULT_MOVIE, fit: BoxFit.cover);
   }
 
 }

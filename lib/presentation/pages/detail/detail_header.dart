@@ -6,7 +6,7 @@ import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 
 const double _HEIGHT = 250.0;
 const double _PADDING = 50.0;
-const int _FADE_IN_DURATION = 300;
+const int _FADE_IN_DURATION = 100;
 
 class DetailHeader extends StatelessWidget {
 
@@ -37,6 +37,7 @@ class DetailHeader extends StatelessWidget {
       fit: BoxFit.cover,
       placeholder: _createPlaceholder(),
       errorWidget: _createPlaceholder(),
+      fadeOutDuration: new Duration(milliseconds: _FADE_IN_DURATION),
       fadeInDuration: new Duration(milliseconds: _FADE_IN_DURATION),
     );
   }

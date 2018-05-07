@@ -1,8 +1,8 @@
 import 'package:fluttermuvis/domain/model/detail.dart';
+import 'package:fluttermuvis/domain/model/backdrop_size.dart';
 import 'package:fluttermuvis/config.dart';
 
 const String _POSTER_SIZE = "w185";
-const String _BACKDROP_SIZE = "w780";
 
 class Movie {
 
@@ -63,13 +63,13 @@ class Movie {
     return Config.PICTURE_URL + _POSTER_SIZE + _posterPath;
   }
 
-  String get backdropPath {
-    return Config.PICTURE_URL + _BACKDROP_SIZE + _backdropPath;
+  String getBackdropPath(BackdropSize size) {
+    return Config.PICTURE_URL + size.value + _backdropPath;
   }
 
   @override
   String toString() {
-    return 'Movie{id: $id, title: $title, originalTitle: $originalTitle, originalLanguage: $originalLanguage, overview: $overview, releaseDate: $releaseDate, forAdults: $forAdults, popularity: $popularity, votesCount: $votesCount, votesAverage: $votesAverage, posterPath: $posterPath, backdropPath: $backdropPath, isFavourite: $isFavourite, detail: $detail}';
+    return 'Movie{id: $id, title: $title, originalTitle: $originalTitle, originalLanguage: $originalLanguage, overview: $overview, releaseDate: $releaseDate, forAdults: $forAdults, popularity: $popularity, votesCount: $votesCount, votesAverage: $votesAverage, posterPath: $posterPath, isFavourite: $isFavourite, detail: $detail}';
   }
 
 }
