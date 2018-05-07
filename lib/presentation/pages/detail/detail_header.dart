@@ -23,34 +23,32 @@ class DetailHeader extends StatelessWidget {
           height: _HEIGHT,
           child: new Material(
           color: ThemeColors.silver,
-          child: new CachedNetworkImage(
-            imageUrl: _backdropPath,
-            fit: BoxFit.cover,
-            placeholder: new _DetailHeaderPlaceholder(),
-            errorWidget: new _DetailHeaderPlaceholder(),
-            fadeInDuration: new Duration(milliseconds: _FADE_IN_DURATION),
-            ),
+            child: _createBackdrop(),
           ),
         ),
-        new _DetailHeaderToolbar(),
+        _createToolbar(),
       ],
     );
   }
-}
 
-class _DetailHeaderPlaceholder extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Padding(
-        padding: new EdgeInsets.all(_PADDING),
-        child: new Image.asset(Drawables.IC_EMPTY_MOVIES, fit: BoxFit.contain)
+  Widget _createBackdrop() {
+    return new CachedNetworkImage(
+      imageUrl: _backdropPath,
+      fit: BoxFit.cover,
+      placeholder: _createPlaceholder(),
+      errorWidget: _createPlaceholder(),
+      fadeInDuration: new Duration(milliseconds: _FADE_IN_DURATION),
     );
   }
-}
 
-class _DetailHeaderToolbar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _createPlaceholder() {
+    return new Padding(
+      padding: new EdgeInsets.all(_PADDING),
+      child: new Image.asset(Drawables.IC_EMPTY_MOVIES, fit: BoxFit.contain)
+    );
+  }
+
+  Widget _createToolbar() {
     return new AppBar(
       elevation: 0.0,
       backgroundColor: Colors.transparent,
