@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fluttermuvis/data/parser.dart';
+import 'package:fluttermuvis/data/parser/parser.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 
 class MoviesParser extends Parser<List<Movie>> {

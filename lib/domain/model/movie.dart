@@ -36,17 +36,6 @@ class Movie {
 
   String get overview => _overview;
 
-  DateTime get releaseDate {
-    try {
-      return DateTime.parse(_releaseDate);
-    } catch (exception) {}
-    return null;
-  }
-
-  String get releaseYear {
-    return releaseDate != null ? releaseDate.year.toString() : "";
-  }
-
   bool get forAdults => _forAdults;
 
   double get popularity => _popularity;
@@ -58,6 +47,17 @@ class Movie {
   bool get isFavourite => _isFavourite;
 
   Detail get detail => _detail;
+
+  DateTime get releaseDate {
+    try {
+      return DateTime.parse(_releaseDate);
+    } catch (exception) {}
+    return null;
+  }
+
+  String get releaseYear {
+    return releaseDate != null ? releaseDate.year.toString() : "";
+  }
 
   String get posterPath {
     return Config.PICTURE_URL + _POSTER_SIZE + _posterPath;

@@ -9,11 +9,11 @@ const double _DETAIL_PADDING = 10.0;
 const double _POSTER_HEIGHT = 150.0;
 const double _POSTER_WIDTH = 100.0;
 const double _TITLE_SIZE = 25.0;
-const double _INFO_SIZE = 18.0;
+const double _INFO_SIZE = 14.0;
 const double _HORIZONTAL_PADDING = 10.0;
 const double _VERTICAL_PADDING = 5.0;
-const double _RATING_STAR_SIZE = 25.0;
-const double _RATING_FONT_SIZE = 20.0;
+const double _RATING_STAR_SIZE = 22.0;
+const double _RATING_FONT_SIZE = 18.0;
 
 class DetailDescription extends StatelessWidget {
 

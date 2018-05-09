@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:fluttermuvis/domain/interactor/interactors_provider.dart';
+import 'package:fluttermuvis/domain/interactor/get_detail.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
+import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/domain/model/backdrop_size.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_header.dart';
@@ -33,6 +36,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
+    _loadDetail();
     _loadBigBackdropWithDelay();
   }
 
@@ -78,6 +82,20 @@ class _DetailPageState extends State<DetailPage> {
       _isOverviewCollapsed =! _isOverviewCollapsed;
     });
   }
+
+  void _loadDetail() {
+    GetDetail getDetail = InteractorsProvider.getDetailInteractor();
+    getDetail.id = widget._movie.id;
+    getDetail.execute()
+      .then(_onDetailLoadSuccess)
+      .catchError(_onDetailLoadError);
+  }
+
+  void _onDetailLoadSuccess(Detail detail) {
+    print(detail.overview);
+  }
+
+  void _onDetailLoadError(dynamic error) => print(error);
 
   void _loadBigBackdropWithDelay() {
     new Future.delayed(new Duration(milliseconds: _BIG_BACKDROP_DELAY), () {
