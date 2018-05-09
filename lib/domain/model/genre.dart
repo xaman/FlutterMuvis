@@ -5,7 +5,7 @@ class Genre {
 
   Genre(this._id, this._name);
 
-  String get name => _name;
+  String get name => _name ?? "";
 
   int get id => _id;
 

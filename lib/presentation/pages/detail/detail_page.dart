@@ -10,11 +10,8 @@ import 'package:fluttermuvis/domain/model/backdrop_size.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_header.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_description.dart';
+import 'package:fluttermuvis/presentation/pages/detail/detail_overview.dart';
 
-const double _OVERVIEW_SIZE = 18.0;
-const double _OVERVIEW_PADDING = 15.0;
-const int _OVERVIEW_COLLAPSED_LINES = 5;
-const int _OVERVIEW_EXPANDED_LINES = 100;
 const int _BIG_BACKDROP_DELAY = 1000;
 
 class DetailPage extends StatefulWidget {
@@ -30,7 +27,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
 
   BuildContext _scaffoldContext;
-  bool _isOverviewCollapsed = true;
+  Detail _detail;
   BackdropSize _backdropSize = BackdropSize.SMALL;
 
   @override
@@ -50,37 +47,13 @@ class _DetailPageState extends State<DetailPage> {
           child: new Column(
             children: <Widget>[
               new DetailHeader(widget._movie.getBackdropPath(_backdropSize)),
-              new DetailDescription(widget._movie),
-              _getOverview(),
+              new DetailDescription(widget._movie, _detail),
+              new DetailOverview(widget._movie.overview),
             ],
           ),
         );
       })
     );
-  }
-
-  Widget _getOverview() {
-    return new InkWell(
-      onTap: _onOverviewTap,
-      child: new Padding(
-        padding: new EdgeInsets.all(_OVERVIEW_PADDING),
-        child: new Text(
-          widget._movie.overview,
-          maxLines: _getOverviewMaxLines(),
-          overflow: TextOverflow.ellipsis,
-          style: new TextStyle(
-            color: ThemeColors.ash,
-            fontSize: _OVERVIEW_SIZE,
-          ),
-        ),
-      )
-    );
-  }
-
-  void _onOverviewTap() {
-    setState(() {
-      _isOverviewCollapsed =! _isOverviewCollapsed;
-    });
   }
 
   void _loadDetail() {
@@ -92,10 +65,14 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   void _onDetailLoadSuccess(Detail detail) {
-    print(detail.overview);
+    setState(() {
+      _detail = detail;
+    });
   }
 
-  void _onDetailLoadError(dynamic error) => print(error);
+  void _onDetailLoadError(dynamic error) {
+    print(error);
+  }
 
   void _loadBigBackdropWithDelay() {
     new Future.delayed(new Duration(milliseconds: _BIG_BACKDROP_DELAY), () {
@@ -103,10 +80,6 @@ class _DetailPageState extends State<DetailPage> {
         _backdropSize = BackdropSize.BIG;
       });
     });
-  }
-
-  int _getOverviewMaxLines() {
-    return _isOverviewCollapsed ? _OVERVIEW_COLLAPSED_LINES : _OVERVIEW_EXPANDED_LINES;
   }
 
 }

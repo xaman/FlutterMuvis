@@ -28,13 +28,13 @@ class Movie {
 
   int get id => _id;
 
-  String get title => _title;
+  String get title => _title ?? "";
 
-  String get originalTitle => _originalTitle;
+  String get originalTitle => _originalTitle ?? "";
 
-  String get originalLanguage => _originalLanguage;
+  String get originalLanguage => _originalLanguage ?? "";
 
-  String get overview => _overview;
+  String get overview => _overview ?? "";
 
   bool get forAdults => _forAdults;
 
@@ -56,7 +56,7 @@ class Movie {
   }
 
   String get releaseYear {
-    return releaseDate != null ? releaseDate.year.toString() : "";
+    return releaseDate?.year?.toString() ?? "";
   }
 
   String get posterPath {

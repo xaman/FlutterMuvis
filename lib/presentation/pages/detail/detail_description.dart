@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/domain/model/movie.dart';
+import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 import 'package:fluttermuvis/presentation/widgets/poster_hero.dart';
+import 'package:fluttermuvis/utils/strings.dart';
 
 const double _DETAIL_PADDING = 10.0;
 const double _POSTER_HEIGHT = 150.0;
 const double _POSTER_WIDTH = 100.0;
-const double _TITLE_SIZE = 25.0;
+const double _TITLE_SIZE = 22.0;
 const double _INFO_SIZE = 14.0;
 const double _HORIZONTAL_PADDING = 10.0;
 const double _VERTICAL_PADDING = 5.0;
@@ -18,8 +20,9 @@ const double _RATING_FONT_SIZE = 18.0;
 class DetailDescription extends StatelessWidget {
 
   final Movie _movie;
+  final Detail _detail;
 
-  DetailDescription(this._movie);
+  DetailDescription(this._movie, this._detail);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,13 @@ class DetailDescription extends StatelessWidget {
                 _getVerticalPadding(),
                 _getRating(),
                 _getVerticalPadding(),
-                _getInfo(_movie.releaseYear)
+                _getInfo(context, _movie.releaseYear),
+                _getVerticalPadding(),
+                _getInfo(context, _detail?.runtime),
+                _getVerticalPadding(),
+                _getInfo(context, _detail?.genres),
+                _getVerticalPadding(),
+                _getInfo(context, _detail?.country)
               ],
             )
           ],
@@ -58,8 +67,13 @@ class DetailDescription extends StatelessWidget {
     );
   }
 
-  Widget _getInfo(String value) {
-    return new Text(value, style: new TextStyle(color: ThemeColors.ash, fontSize: _INFO_SIZE));
+  Widget _getInfo(BuildContext context, String value) {
+    return new SizedBox(
+        width: _getTitleMaxWidth(context),
+        child: !Strings.isNullOrEmpty(value) ?
+        new Text(value, style: new TextStyle(color: ThemeColors.ash, fontSize: _INFO_SIZE)) :
+        new Container()
+    );
   }
 
   Widget _getRating() {

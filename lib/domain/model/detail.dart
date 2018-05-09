@@ -17,23 +17,29 @@ class Detail {
       this._originalTitle, this._overview, this._runtime, this._genres,
       this._countries);
 
-  List<Country> get countries => _countries;
+  String get overview => _overview ?? "";
 
-  List<Genre> get genres => _genres;
+  String get originalTitle => _originalTitle ?? "";
 
-  int get runtime => _runtime;
+  String get originalLanguage => _originalLanguage ?? "";
 
-  String get overview => _overview;
+  String get imdbId => _imdbId ?? "";
 
-  String get originalTitle => _originalTitle;
-
-  String get originalLanguage => _originalLanguage;
-
-  String get imdbId => _imdbId;
-
-  String get homepage => _homepage;
+  String get homepage => _homepage ?? "";
 
   int get budget => _budget;
+
+  String get runtime {
+    return _runtime == 0 ? "" : "$_runtime mins.";
+  }
+
+  String get genres {
+    return _genres?.map((genre) => genre.name)?.join(", ") ?? "";
+  }
+
+  String get country {
+    return _countries?.first?.name ?? "";
+  }
 
   @override
   String toString() {

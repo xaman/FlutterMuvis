@@ -5,9 +5,9 @@ class Country {
 
   Country(this._iso, this._name);
 
-  String get name => _name;
+  String get name => _name ?? "";
 
-  String get iso => _iso;
+  String get iso => _iso ?? "";
 
   @override
   String toString() {
