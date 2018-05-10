@@ -13,8 +13,11 @@ import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_header.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_description.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_overview.dart';
+import 'package:fluttermuvis/presentation/pages/detail/credits_view.dart';
+import 'package:fluttermuvis/presentation/widgets/vertical_padding.dart';
 
 const int _BIG_BACKDROP_DELAY = 1000;
+const double _BOTTOM_PADDING = 200.0;
 
 class DetailPage extends StatefulWidget {
 
@@ -53,6 +56,8 @@ class _DetailPageState extends State<DetailPage> {
               new DetailHeader(widget._movie.getBackdropPath(_backdropSize)),
               new DetailDescription(widget._movie, _detail),
               new DetailOverview(widget._movie.overview),
+              new CreditsView(_credits),
+              new VerticalPadding(_BOTTOM_PADDING)
             ],
           ),
         );
@@ -68,7 +73,11 @@ class _DetailPageState extends State<DetailPage> {
       .catchError(_onLoadError);
   }
 
-  void _onDetailLoadSuccess(Detail detail) => setState(() { _detail = detail; });
+  void _onDetailLoadSuccess(Detail detail) {
+    setState(() {
+      _detail = detail;
+    });
+  }
 
   void _loadCredits() {
     GetCredits getCredits = InteractorsProvider.getCreditsInteractor();
@@ -78,7 +87,11 @@ class _DetailPageState extends State<DetailPage> {
       .catchError(_onLoadError);
   }
 
-  void _onCreditsLoadSuccess(List<Cast> credits) => setState(() { _credits = credits; });
+  void _onCreditsLoadSuccess(List<Cast> credits) {
+    setState(() {
+      _credits = credits;
+    });
+  }
 
   void _onLoadError(dynamic error) => print(error);
 

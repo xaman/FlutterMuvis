@@ -5,6 +5,8 @@ import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 import 'package:fluttermuvis/presentation/widgets/poster_hero.dart';
+import 'package:fluttermuvis/presentation/widgets/vertical_padding.dart';
+import 'package:fluttermuvis/presentation/widgets/horizontal_padding.dart';
 import 'package:fluttermuvis/utils/strings.dart';
 
 const double _DETAIL_PADDING = 10.0;
@@ -32,12 +34,12 @@ class DetailDescription extends StatelessWidget {
         child: new Row(
           children: <Widget>[
             _createPoster(_movie.posterPath),
-            _getHorizontalPadding(),
+            new HorizontalPadding(_HORIZONTAL_PADDING),
             new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _getTitle(context),
-                _getVerticalPadding(),
+                new VerticalPadding(_VERTICAL_PADDING),
                 _getRating(),
                 _getInfo(context, _movie.releaseYear),
                 _getInfo(context, _detail?.runtime),
@@ -67,7 +69,7 @@ class DetailDescription extends StatelessWidget {
     return Strings.notNullOrEmpty(value) ?
       new Column (
         children: <Widget>[
-          _getVerticalPadding(),
+          new VerticalPadding(_VERTICAL_PADDING),
           new SizedBox(
             width: _getTitleMaxWidth(context),
             child: new Text(
@@ -110,14 +112,6 @@ class DetailDescription extends StatelessWidget {
         )
       )
     );
-  }
-
-  Widget _getVerticalPadding() {
-    return new Padding(padding: new EdgeInsets.only(bottom: _VERTICAL_PADDING));
-  }
-
-  Widget _getHorizontalPadding() {
-    return new Padding(padding: new EdgeInsets.only(left: _HORIZONTAL_PADDING));
   }
 
   double _getTitleMaxWidth(BuildContext context) {

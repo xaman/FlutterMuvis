@@ -31,6 +31,7 @@ flutter:
 
   assets:
    - assets/bg_splash.png
+   - assets/default_avatar.png
    - assets/default_movie.png
    - assets/ic_detail_rating.png
    - assets/ic_empty_favorite.png
