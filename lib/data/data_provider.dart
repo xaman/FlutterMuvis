@@ -16,7 +16,8 @@ class DataProvider {
   static Api _getApi() {
     return new Api(
       ParsersProvider.getMoviesParser(),
-      ParsersProvider.getDetailParser()
+      ParsersProvider.getDetailParser(),
+      ParsersProvider.getCreditsParser()
     );
   }
 

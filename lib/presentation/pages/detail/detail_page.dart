@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttermuvis/domain/interactor/interactors_provider.dart';
 import 'package:fluttermuvis/domain/interactor/get_detail.dart';
+import 'package:fluttermuvis/domain/interactor/get_credits.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/domain/model/detail.dart';
+import 'package:fluttermuvis/domain/model/cast.dart';
 import 'package:fluttermuvis/domain/model/backdrop_size.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_header.dart';
@@ -28,12 +30,14 @@ class _DetailPageState extends State<DetailPage> {
 
   BuildContext _scaffoldContext;
   Detail _detail;
+  List<Cast> _credits;
   BackdropSize _backdropSize = BackdropSize.SMALL;
 
   @override
   void initState() {
     super.initState();
     _loadDetail();
+    _loadCredits();
     _loadBigBackdropWithDelay();
   }
 
@@ -61,18 +65,22 @@ class _DetailPageState extends State<DetailPage> {
     getDetail.id = widget._movie.id;
     getDetail.execute()
       .then(_onDetailLoadSuccess)
-      .catchError(_onDetailLoadError);
+      .catchError(_onLoadError);
   }
 
-  void _onDetailLoadSuccess(Detail detail) {
-    setState(() {
-      _detail = detail;
-    });
+  void _onDetailLoadSuccess(Detail detail) => setState(() { _detail = detail; });
+
+  void _loadCredits() {
+    GetCredits getCredits = InteractorsProvider.getCreditsInteractor();
+    getCredits.id = widget._movie.id;
+    getCredits.execute()
+      .then(_onCreditsLoadSuccess)
+      .catchError(_onLoadError);
   }
 
-  void _onDetailLoadError(dynamic error) {
-    print(error);
-  }
+  void _onCreditsLoadSuccess(List<Cast> credits) => setState(() { _credits = credits; });
+
+  void _onLoadError(dynamic error) => print(error);
 
   void _loadBigBackdropWithDelay() {
     new Future.delayed(new Duration(milliseconds: _BIG_BACKDROP_DELAY), () {
