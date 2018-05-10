@@ -1,5 +1,6 @@
 import 'package:fluttermuvis/domain/model/genre.dart';
 import 'package:fluttermuvis/domain/model/country.dart';
+import 'package:fluttermuvis/utils/numbers.dart';
 
 class Detail {
 
@@ -30,7 +31,7 @@ class Detail {
   int get budget => _budget;
 
   String get runtime {
-    return _runtime == 0 ? "" : "$_runtime mins.";
+    return Numbers.notZero(_runtime) ? "$_runtime mins." : "";
   }
 
   String get genres {
@@ -38,7 +39,7 @@ class Detail {
   }
 
   String get country {
-    return _countries?.first?.name ?? "";
+    return _countries.isNotEmpty ? _countries.first.name : "";
   }
 
   @override

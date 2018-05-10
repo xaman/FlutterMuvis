@@ -39,13 +39,9 @@ class DetailDescription extends StatelessWidget {
                 _getTitle(context),
                 _getVerticalPadding(),
                 _getRating(),
-                _getVerticalPadding(),
                 _getInfo(context, _movie.releaseYear),
-                _getVerticalPadding(),
                 _getInfo(context, _detail?.runtime),
-                _getVerticalPadding(),
                 _getInfo(context, _detail?.genres),
-                _getVerticalPadding(),
                 _getInfo(context, _detail?.country)
               ],
             )
@@ -68,12 +64,19 @@ class DetailDescription extends StatelessWidget {
   }
 
   Widget _getInfo(BuildContext context, String value) {
-    return new SizedBox(
-        width: _getTitleMaxWidth(context),
-        child: !Strings.isNullOrEmpty(value) ?
-        new Text(value, style: new TextStyle(color: ThemeColors.ash, fontSize: _INFO_SIZE)) :
-        new Container()
-    );
+    return Strings.notNullOrEmpty(value) ?
+      new Column (
+        children: <Widget>[
+          _getVerticalPadding(),
+          new SizedBox(
+            width: _getTitleMaxWidth(context),
+            child: new Text(
+              value,
+              style: new TextStyle(color: ThemeColors.ash, fontSize: _INFO_SIZE))
+          )
+        ],
+      ) :
+      new Container();
   }
 
   Widget _getRating() {
