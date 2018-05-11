@@ -10,25 +10,30 @@ import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/domain/model/cast.dart';
 import 'package:fluttermuvis/domain/model/backdrop_size.dart';
 import 'package:fluttermuvis/presentation/res/theme_colors.dart';
+import 'package:fluttermuvis/presentation/res/drawables.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_header.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_description.dart';
 import 'package:fluttermuvis/presentation/pages/detail/detail_overview.dart';
 import 'package:fluttermuvis/presentation/pages/detail/credits_view.dart';
+import 'package:fluttermuvis/presentation/pages/utils/snackbar_factory.dart';
 import 'package:fluttermuvis/presentation/widgets/vertical_padding.dart';
 
 const int _BIG_BACKDROP_DELAY = 1000;
 const double _EXPANDED_HEADER_HEIGHT = 180.0;
 const double _BOTTOM_PADDING = 200.0;
 const double _HEADER_COLLAPSED_PIXELS = 125.0;
+const double _FAB_ICON_SIZE = 20.0;
 
 class DetailPage extends StatefulWidget {
 
   final Movie _movie;
+  final SnackbarFactory _snackbarFactory = new SnackbarFactory();
 
   DetailPage(this._movie);
 
   @override
   State<StatefulWidget> createState() => new _DetailPageState();
+
 }
 
 class _DetailPageState extends State<DetailPage> {
@@ -59,15 +64,16 @@ class _DetailPageState extends State<DetailPage> {
         return new CustomScrollView(
           controller: _scrollController,
           slivers: <Widget>[
-            _getHeader(),
-            _getContent()
+            _createHeader(),
+            _createContent()
           ],
         );
-      })
+      }),
+      floatingActionButton: _createFab(),
     );
   }
 
-  Widget _getHeader() {
+  Widget _createHeader() {
     return new SliverAppBar(
       title: _getToolbarTitle(),
       flexibleSpace: new FlexibleSpaceBar(
@@ -92,7 +98,7 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Widget _getContent() {
+  Widget _createContent() {
     return new SliverList(
       delegate: new SliverChildListDelegate(
         <Widget>[
@@ -102,6 +108,22 @@ class _DetailPageState extends State<DetailPage> {
           new VerticalPadding(_BOTTOM_PADDING)
         ]
       ),
+    );
+  }
+
+  Widget _createFab() {
+    return new FloatingActionButton(
+      onPressed: _onFabClick,
+      backgroundColor: ThemeColors.strawberry,
+      child: _createFabIcon(),
+    );
+  }
+
+  Widget _createFabIcon() {
+    return new Image.asset(
+      widget._movie.isFavourite ? Drawables.IC_FAB_UNFAV : Drawables.IC_FAB_FAV,
+      width: _FAB_ICON_SIZE,
+      height: _FAB_ICON_SIZE,
     );
   }
 
@@ -154,5 +176,7 @@ class _DetailPageState extends State<DetailPage> {
     var opacity = _scrollPosition / _HEADER_COLLAPSED_PIXELS;
     return opacity < 0.0 ? 0.0 : opacity > 1.0 ? 1.0 : opacity;
   }
+
+  void _onFabClick() => widget._snackbarFactory.show(_scaffoldContext, "Favorite!");
 
 }

@@ -2,6 +2,8 @@
 class Drawables {
   static const String DEFAULT_AVATAR = "assets/default_avatar.png";
   static const String DEFAULT_MOVIE = "assets/default_movie.png";
+  static const String IC_FAB_FAV = "assets/ic_fab_fav.png";
+  static const String IC_FAB_UNFAV = "assets/ic_fab_unfav.png";
   static const String IC_FAVORITES = "assets/ic_favorites.png";
   static const String IC_MOVIE_RATING = "assets/ic_movie_rating.png";
   static const String IC_MOVIES = "assets/ic_movies.png";

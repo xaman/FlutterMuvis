@@ -15,7 +15,6 @@ import 'package:fluttermuvis/presentation/pages/detail/detail_page.dart';
 const int _NUM_PAGES = 2;
 const int _PAGE_CHANGE_DURATION = 300;
 const double _TOOLBAR_LOGO_HEIGHT = 30.0;
-const int _SNACKBAR_DURATION = 500;
 
 class HomePage extends StatefulWidget {
   @override
@@ -132,15 +131,6 @@ class _HomePageState extends State<HomePage> {
 
   void _handleMovieClick(Movie movie) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (_) => new DetailPage(movie)));
-  }
-
-  void _showSnackbar(String text) {
-    Scaffold.of(_scaffoldContext).showSnackBar(
-        new SnackBar(
-          content: new Text(text),
-          duration: new Duration(milliseconds: _SNACKBAR_DURATION),
-        )
-    );
   }
 
 }

@@ -13,7 +13,7 @@ class PosterHero extends StatelessWidget {
       child: new Image.network(
         _path,
         fit: BoxFit.cover,
-        scale: 0.5
+        scale: 0.2
       )
     );
   }
