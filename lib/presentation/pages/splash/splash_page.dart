@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttermuvis/presentation/pages/home/home_page.dart';
 import 'package:fluttermuvis/presentation/res/drawables.dart';
 
+const double _LOGO_WIDTH = 200.0;
 
 class SplashPage extends StatelessWidget {
   @override
@@ -13,18 +14,29 @@ class SplashPage extends StatelessWidget {
     return new Scaffold(
       body: new Material(
         color: Colors.red,
-        child: new Container(
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage(Drawables.SPLASH_BG)
-            ),
-          ),
-          child: new Center(
-            child: new Image.asset(Drawables.SPLASH_LOGO, width: 200.0),
-          ),
+        child: new Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            _createBackground(),
+            _createLogo()
+          ],
         ),
       ),
     );
+  }
+
+  Widget _createBackground() {
+    return new SizedBox.expand(
+      child: new Image.asset(
+        Drawables.SPLASH_BG,
+        fit: BoxFit.cover,
+        scale: 0.2,
+      ),
+    );
+  }
+
+  Widget _createLogo() {
+    return new Image.asset(Drawables.SPLASH_LOGO, width: _LOGO_WIDTH);
   }
 
   void _navigateToHomeAfterDelay(BuildContext context) {
