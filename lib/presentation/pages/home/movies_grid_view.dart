@@ -6,7 +6,7 @@ import 'package:fluttermuvis/presentation/pages/home/movie_item.dart';
 
 
 const double _ITEM_MAX_WIDTH = 150.0;
-const double _ITEM_ASPECT_RATIO = 100/200;
+const double _ITEM_ASPECT_RATIO = 100/205;
 const double _OFFSET_TO_REFRESH = 1000.0;
 
 class MoviesGridView extends StatelessWidget {

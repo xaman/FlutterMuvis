@@ -23,30 +23,26 @@ class CastItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Padding(
       child: new Card(
-        color: Colors.white,
+        color: ThemeColors.silver,
         child: new Column(
           children: <Widget>[
-            new CachedNetworkImage(
-              imageUrl: _cast.profilePath,
-              height: _PICTURE_HEIGHT,
-              width: _PICTURE_WIDTH,
-              fit: BoxFit.cover,
-              placeholder: _createPlaceholder(),
-              errorWidget: _createPlaceholder(),
-            ),
-            new Padding(
-              padding: new EdgeInsets.all(_INTERNAL_PADDING),
-              child: new Column(
-                children: <Widget>[
-                  _createName(_cast.name),
-                  _createCharacter(_cast.character)
-                ],
-              ),
-            )
+            _createAvatar(),
+            _createDetail(),
           ],
         ),
       ),
       padding: new EdgeInsets.all(_EXTERNAL_PADDING),
+    );
+  }
+
+  Widget _createAvatar() {
+    return new CachedNetworkImage(
+      imageUrl: _cast.profilePath,
+      height: _PICTURE_HEIGHT,
+      width: _PICTURE_WIDTH,
+      fit: BoxFit.cover,
+      placeholder: _createPlaceholder(),
+      errorWidget: _createPlaceholder(),
     );
   }
 
@@ -58,6 +54,21 @@ class CastItem extends StatelessWidget {
         Drawables.DEFAULT_AVATAR,
         fit: BoxFit.cover,
         scale: 0.2,
+      )
+    );
+  }
+
+  Widget _createDetail() {
+    return new Material(
+      color: Colors.white,
+      child: new Padding(
+        padding: new EdgeInsets.all(_INTERNAL_PADDING),
+        child: new Column(
+          children: <Widget>[
+            _createName(_cast.name),
+            _createCharacter(_cast.character)
+          ],
+        ),
       )
     );
   }
