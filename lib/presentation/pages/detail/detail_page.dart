@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttermuvis/domain/interactor/interactors_provider.dart';
 import 'package:fluttermuvis/domain/interactor/get_detail.dart';
 import 'package:fluttermuvis/domain/interactor/get_credits.dart';
+import 'package:fluttermuvis/domain/interactor/set_favorite.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/domain/model/cast.dart';
@@ -38,6 +39,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
 
+  Movie _movieState;
   BuildContext _scaffoldContext;
   Detail _detail;
   List<Cast> _credits;
@@ -48,6 +50,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
+    _movieState = widget._movie;
     _scrollController = new ScrollController();
     _scrollController.addListener(_onScrollChange);
     _loadDetail();
@@ -121,7 +124,7 @@ class _DetailPageState extends State<DetailPage> {
 
   Widget _createFabIcon() {
     return new Image.asset(
-      widget._movie.isFavourite ? Drawables.IC_FAB_UNFAV : Drawables.IC_FAB_FAV,
+      _movieState.isFavorite ? Drawables.IC_FAB_UNFAV : Drawables.IC_FAB_FAV,
       width: _FAB_ICON_SIZE,
       height: _FAB_ICON_SIZE,
     );
@@ -132,7 +135,7 @@ class _DetailPageState extends State<DetailPage> {
     getDetail.id = widget._movie.id;
     getDetail.execute()
       .then(_onDetailLoadSuccess)
-      .catchError(_onLoadError);
+      .catchError(_onError);
   }
 
   void _onDetailLoadSuccess(Detail detail) {
@@ -146,7 +149,7 @@ class _DetailPageState extends State<DetailPage> {
     getCredits.id = widget._movie.id;
     getCredits.execute()
       .then(_onCreditsLoadSuccess)
-      .catchError(_onLoadError);
+      .catchError(_onError);
   }
 
   void _onCreditsLoadSuccess(List<Cast> credits) {
@@ -154,8 +157,6 @@ class _DetailPageState extends State<DetailPage> {
       _credits = credits;
     });
   }
-
-  void _onLoadError(dynamic error) => print(error);
 
   void _loadBigBackdropWithDelay() {
     new Future.delayed(new Duration(milliseconds: _BIG_BACKDROP_DELAY), () {
@@ -177,6 +178,25 @@ class _DetailPageState extends State<DetailPage> {
     return opacity < 0.0 ? 0.0 : opacity > 1.0 ? 1.0 : opacity;
   }
 
-  void _onFabClick() => widget._snackbarFactory.show(_scaffoldContext, "Favorite!");
+  void _onFabClick() {
+    SetFavorite setFavorite = InteractorsProvider.getFavoriteInteractor();
+    setFavorite.movie = _movieState;
+    setFavorite.execute()
+      .then(_onSetFavoriteSuccess)
+      .catchError(_onError);
+  }
+
+  void _onSetFavoriteSuccess(Movie movie) {
+    setState((){
+      _movieState = movie;
+    });
+    widget._snackbarFactory.show(
+      _scaffoldContext,
+      movie.isFavorite ? "Favorited!" : "Unfavorited!"
+    );
+  }
+
+
+  void _onError(dynamic error) => print(error);
 
 }

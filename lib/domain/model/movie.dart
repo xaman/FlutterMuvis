@@ -18,13 +18,13 @@ class Movie {
   double _votesAverage;
   String _posterPath;
   String _backdropPath;
-  bool _isFavourite;
+  bool _isFavorite;
   Detail _detail;
 
   Movie(this._id, this._title, this._originalTitle, this._originalLanguage,
       this._overview, this._releaseDate, this._forAdults, this._popularity,
       this._votesCount, this._votesAverage, this._posterPath,
-      this._backdropPath, this._isFavourite, this._detail);
+      this._backdropPath, this._isFavorite, this._detail);
 
   int get id => _id;
 
@@ -44,7 +44,7 @@ class Movie {
 
   double get votesAverage => _votesAverage;
 
-  bool get isFavourite => _isFavourite;
+  bool get isFavorite => _isFavorite ?? false;
 
   Detail get detail => _detail;
 
@@ -67,9 +67,29 @@ class Movie {
     return Config.PICTURE_URL + size.value + _backdropPath;
   }
 
+  Movie clone({id, title, originalTitle, originalLanguage, overview, releaseDate, forAdults, popularity, votesCount, votesAverage, posterPath, backdropPath, favorite, detail}) {
+    return new Movie(
+      id ?? _id,
+      title ?? _title,
+      originalTitle ?? _originalTitle,
+      originalLanguage ?? _originalLanguage,
+      overview ?? _overview,
+      releaseDate ?? _releaseDate,
+      forAdults ?? _forAdults,
+      popularity ?? _popularity,
+      votesCount ?? _votesCount,
+      votesAverage ?? _votesAverage,
+      posterPath ?? _posterPath,
+      backdropPath ?? _backdropPath,
+      favorite ?? _isFavorite,
+      detail ?? _detail);
+  }
+
+
+
   @override
   String toString() {
-    return 'Movie{id: $id, title: $title, originalTitle: $originalTitle, originalLanguage: $originalLanguage, overview: $overview, releaseDate: $releaseDate, forAdults: $forAdults, popularity: $popularity, votesCount: $votesCount, votesAverage: $votesAverage, posterPath: $posterPath, isFavourite: $isFavourite, detail: $detail}';
+    return 'Movie{id: $id, title: $title, originalTitle: $originalTitle, originalLanguage: $originalLanguage, overview: $overview, releaseDate: $releaseDate, forAdults: $forAdults, popularity: $popularity, votesCount: $votesCount, votesAverage: $votesAverage, posterPath: $posterPath, isFavourite: $isFavorite, detail: $detail}';
   }
 
 }

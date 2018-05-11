@@ -19,4 +19,8 @@ class Repository {
 
   Future<List<Cast>> getCredits(int id) => _api.getCredits(id);
 
+  Future<Movie> setFavorite(Movie movie) {
+    return new Future(() => movie.clone(favorite: !movie.isFavorite));
+  }
+
 }
