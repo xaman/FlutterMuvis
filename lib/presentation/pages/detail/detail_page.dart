@@ -17,7 +17,9 @@ import 'package:fluttermuvis/presentation/pages/detail/credits_view.dart';
 import 'package:fluttermuvis/presentation/widgets/vertical_padding.dart';
 
 const int _BIG_BACKDROP_DELAY = 1000;
+const double _EXPANDED_HEADER_HEIGHT = 180.0;
 const double _BOTTOM_PADDING = 200.0;
+const double _HEADER_COLLAPSED_PIXELS = 125.0;
 
 class DetailPage extends StatefulWidget {
 
@@ -35,10 +37,14 @@ class _DetailPageState extends State<DetailPage> {
   Detail _detail;
   List<Cast> _credits;
   BackdropSize _backdropSize = BackdropSize.SMALL;
+  ScrollController _scrollController;
+  double _scrollPosition = 0.0;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = new ScrollController();
+    _scrollController.addListener(_onScrollChange);
     _loadDetail();
     _loadCredits();
     _loadBigBackdropWithDelay();
@@ -50,18 +56,52 @@ class _DetailPageState extends State<DetailPage> {
       backgroundColor: ThemeColors.lime,
       body: new Builder(builder: (context) {
         _scaffoldContext = context;
-        return new SingleChildScrollView(
-          child: new Column(
-            children: <Widget>[
-              new DetailHeader(widget._movie.getBackdropPath(_backdropSize)),
-              new DetailDescription(widget._movie, _detail),
-              new DetailOverview(widget._movie.overview),
-              new CreditsView(_credits),
-              new VerticalPadding(_BOTTOM_PADDING)
-            ],
-          ),
+        return new CustomScrollView(
+          controller: _scrollController,
+          slivers: <Widget>[
+            _getHeader(),
+            _getContent()
+          ],
         );
       })
+    );
+  }
+
+  Widget _getHeader() {
+    return new SliverAppBar(
+      title: _getToolbarTitle(),
+      flexibleSpace: new FlexibleSpaceBar(
+        background: new DetailHeader(widget._movie.getBackdropPath(_backdropSize)),
+      ),
+      expandedHeight: _EXPANDED_HEADER_HEIGHT,
+      floating: false,
+      pinned: true,
+      actions: <Widget>[
+        new Icon(
+          Icons.share,
+          color: Colors.white,
+        )
+      ]
+    );
+  }
+
+  Widget _getToolbarTitle() {
+    return new Opacity(
+      child: new Text(widget._movie.title),
+      opacity: _toolbarTextOpacity(),
+    );
+  }
+
+  Widget _getContent() {
+    return new SliverList(
+      delegate: new SliverChildListDelegate(
+        <Widget>[
+          new DetailDescription(widget._movie, _detail),
+          new DetailOverview(widget._movie.overview),
+          new CreditsView(_credits),
+          new VerticalPadding(_BOTTOM_PADDING)
+        ]
+      ),
     );
   }
 
@@ -101,6 +141,18 @@ class _DetailPageState extends State<DetailPage> {
         _backdropSize = BackdropSize.BIG;
       });
     });
+  }
+
+  void _onScrollChange() {
+    setState(() {
+      _scrollPosition = _scrollController.position.pixels;
+      print(_scrollPosition);
+    });
+  }
+
+  double _toolbarTextOpacity() {
+    var opacity = _scrollPosition / _HEADER_COLLAPSED_PIXELS;
+    return opacity <= 1.0 ? opacity : 1.0;
   }
 
 }
