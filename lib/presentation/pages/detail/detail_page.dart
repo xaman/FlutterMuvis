@@ -152,7 +152,7 @@ class _DetailPageState extends State<DetailPage> {
 
   double _toolbarTextOpacity() {
     var opacity = _scrollPosition / _HEADER_COLLAPSED_PIXELS;
-    return opacity <= 1.0 ? opacity : 1.0;
+    return opacity < 0.0 ? 0.0 : opacity > 1.0 ? 1.0 : opacity;
   }
 
 }
