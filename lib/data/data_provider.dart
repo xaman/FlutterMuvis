@@ -1,5 +1,6 @@
 import 'package:fluttermuvis/data/parser/parsers_provider.dart';
 import 'package:fluttermuvis/data/repository.dart';
+import 'package:fluttermuvis/data/repository_impl.dart';
 import 'package:fluttermuvis/data/api.dart';
 
 class DataProvider {
@@ -8,7 +9,7 @@ class DataProvider {
 
   static Repository getRepository() {
     if (_repository == null) {
-      _repository = new Repository(_getApi());
+      _repository = new RepositoryImpl(_getApi());
     }
     return _repository;
   }
