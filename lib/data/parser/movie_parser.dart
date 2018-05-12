@@ -13,7 +13,7 @@ class MoviesParser extends Parser<List<Movie>> {
         var movie = _parseMovie(movieJson);
         result.add(movie);
       } catch (exception) {
-        print(exception.toString());
+        print("[MoviesParser] $exception $movieJson");
       }
     }
     return result;

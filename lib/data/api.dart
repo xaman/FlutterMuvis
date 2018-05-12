@@ -10,6 +10,7 @@ import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/domain/model/cast.dart';
 
+const String TAG = "[API]";
 
 class Api {
 
@@ -40,7 +41,10 @@ class Api {
   }
 
   Future<String> _get(String url) {
-    return http.get(url).then((response) => response.body);
+    return http.get(url).then((response) {
+      if (Config.DEBUG) print("$TAG ${response.body}");
+      return response.body;
+    });
   }
 
 }

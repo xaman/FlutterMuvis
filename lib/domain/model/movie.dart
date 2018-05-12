@@ -15,7 +15,7 @@ class Movie {
   bool _forAdults;
   double _popularity;
   int _votesCount;
-  double _votesAverage;
+  num _votesAverage;
   String _posterPath;
   String _backdropPath;
   bool _isFavorite;
@@ -42,7 +42,7 @@ class Movie {
 
   int get votesCount => _votesCount;
 
-  double get votesAverage => _votesAverage;
+  num get votesAverage => _votesAverage;
 
   bool get isFavorite => _isFavorite ?? false;
 
