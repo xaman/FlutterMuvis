@@ -19,7 +19,11 @@ MovieEntity _$MovieEntityFromJson(Map<String, dynamic> json) =>
       ..votesCount = json['vote_count'] as int
       ..votesAverage = json['vote_average'] as num
       ..posterPath = json['poster_path'] as String
-      ..backdropPath = json['backdrop_path'] as String;
+      ..backdropPath = json['backdrop_path'] as String
+      ..detail = json['detail'] == null
+          ? null
+          : new DetailEntity.fromJson(json['detail'] as Map<String, dynamic>)
+      ..isFavorite = json['isFavorite'] as bool;
 
 abstract class _$MovieEntitySerializerMixin {
   int get id;
@@ -34,6 +38,8 @@ abstract class _$MovieEntitySerializerMixin {
   num get votesAverage;
   String get posterPath;
   String get backdropPath;
+  DetailEntity get detail;
+  bool get isFavorite;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'title': title,
@@ -46,6 +52,8 @@ abstract class _$MovieEntitySerializerMixin {
         'vote_count': votesCount,
         'vote_average': votesAverage,
         'poster_path': posterPath,
-        'backdrop_path': backdropPath
+        'backdrop_path': backdropPath,
+        'detail': detail,
+        'isFavorite': isFavorite
       };
 }

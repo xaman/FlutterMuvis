@@ -27,8 +27,19 @@ class RepositoryImpl extends Repository {
       });
   }
 
-  Future<Detail> getDetail(int id) => _api.getMovieDetail(id)
-      .then((entity) => entity.toDomain());
+  Future<Detail> getDetail(int id) {
+    MovieEntity entity = _cache.getById(id);
+    return entity.detail == null ?
+      _getDetailFromApi(id) :
+      new Future.value(entity.detail.toDomain());
+  }
+
+  Future<Detail> _getDetailFromApi(int id) => _api.getMovieDetail(id)
+    .then((entity) {
+      _cache.getById(id)?.detail = entity;
+      return entity.toDomain();
+    });
+
 
   Future<List<Cast>> getCredits(int id) => _api.getCredits(id)
     .then((entities) {

@@ -1,3 +1,4 @@
+import 'package:fluttermuvis/data/entity/detail_entity.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -44,6 +45,11 @@ class MovieEntity extends Object with _$MovieEntitySerializerMixin {
   @JsonKey(name: 'backdrop_path')
   String backdropPath;
 
+  DetailEntity detail;
+
+  bool isFavorite;
+
+
   factory MovieEntity.fromJson(Map<String, dynamic> json) => _$MovieEntityFromJson(json);
 
   Movie toDomain() => new Movie(
@@ -59,7 +65,7 @@ class MovieEntity extends Object with _$MovieEntitySerializerMixin {
     votesAverage,
     posterPath,
     backdropPath,
-    false,
-    null
+    isFavorite,
+    detail?.toDomain()
   );
 }

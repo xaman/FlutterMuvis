@@ -47,6 +47,6 @@ class DetailEntity extends Object with _$DetailEntitySerializerMixin {
       originalTitle,
       overview,
       runtime,
-      genres?.map((it) => it.toDomain()),
-      countries?.map((it) => it.toDomain()));
+      genres?.map((it) => it.toDomain())?.toList(),
+      countries?.map((it) => it.toDomain())?.toList());
 }
