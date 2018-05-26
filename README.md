@@ -1,8 +1,9 @@
 # fluttermuvis
 
-A new Flutter project.
+A Flutter version of my [Muvis](https://github.com/xaman/Muvis) side project.
 
-## Getting Started
+To generate the Json (de)serializers:
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+```
+flutter packages pub run build_runner build
+```

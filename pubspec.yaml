@@ -7,15 +7,19 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: "^0.1.0"
+  cupertino_icons: ^0.1.0
   # HTTP library (https://pub.dartlang.org/packages/http)
-  http: "0.11.3+16"
+  http: 0.11.3+16
   # Image cache with placeholders (https://pub.dartlang.org/packages/cached_network_image)
-  cached_network_image: "0.4.1+1"
+  cached_network_image: 0.4.1+1
+  # Library that contains JSON annotations for (de)seralization (https://flutter.io/json/#code-generation)
+  json_annotation: ^0.2.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: 0.8.8
+  json_serializable: ^0.5.0
 
 
 # For information on the generic Dart part of this file, see the

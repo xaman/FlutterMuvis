@@ -1,9 +1,9 @@
 import 'package:fluttermuvis/data/cache.dart';
-import 'package:fluttermuvis/domain/model/movie.dart';
+import 'package:fluttermuvis/data/entity/movie_entity.dart';
 
-class MoviesCache implements Cache<Movie> {
+class MoviesCache implements Cache<MovieEntity> {
 
-  Map<int, Movie> content;
+  Map<int, MovieEntity> content;
 
   MoviesCache() {
     content = new Map();
@@ -13,16 +13,16 @@ class MoviesCache implements Cache<Movie> {
   bool isEmpty() => content.isEmpty;
 
   @override
-  List<Movie> getAll() => content.values.toList();
+  List<MovieEntity> getAll() => content.values.toList();
 
   @override
-  Movie getById(int id) => content[id];
+  MovieEntity getById(int id) => content[id];
 
   @override
-  void putAll(List<Movie> values) => values.forEach(put);
+  void putAll(List<MovieEntity> values) => values.forEach(put);
 
   @override
-  void put(Movie value) => content[value.id] = value;
+  void put(MovieEntity value) => content[value.id] = value;
 
   @override
   void clear() => content.clear();
