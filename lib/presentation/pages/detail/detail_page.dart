@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttermuvis/domain/interactor/get_movie.dart';
 
 import 'package:fluttermuvis/domain/interactor/interactors_provider.dart';
 import 'package:fluttermuvis/domain/interactor/get_detail.dart';
@@ -53,6 +54,7 @@ class _DetailPageState extends State<DetailPage> {
     _movieState = widget._movie;
     _scrollController = new ScrollController();
     _scrollController.addListener(_onScrollChange);
+    _reloadMovie();
     _loadDetail();
     _loadCredits();
     _loadBigBackdropWithDelay();
@@ -80,7 +82,7 @@ class _DetailPageState extends State<DetailPage> {
     return new SliverAppBar(
       title: _getToolbarTitle(),
       flexibleSpace: new FlexibleSpaceBar(
-        background: new DetailHeader(widget._movie.getBackdropPath(_backdropSize)),
+        background: new DetailHeader(_movieState.getBackdropPath(_backdropSize)),
       ),
       expandedHeight: _EXPANDED_HEADER_HEIGHT,
       floating: false,
@@ -96,7 +98,7 @@ class _DetailPageState extends State<DetailPage> {
 
   Widget _getToolbarTitle() {
     return new Opacity(
-      child: new Text(widget._movie.title),
+      child: new Text(_movieState.title),
       opacity: _toolbarTextOpacity(),
     );
   }
@@ -105,8 +107,8 @@ class _DetailPageState extends State<DetailPage> {
     return new SliverList(
       delegate: new SliverChildListDelegate(
         <Widget>[
-          new DetailDescription(widget._movie, _detail),
-          new DetailOverview(widget._movie.overview),
+          new DetailDescription(_movieState, _detail),
+          new DetailOverview(_movieState.overview),
           new CreditsView(_credits),
           new VerticalPadding(_BOTTOM_PADDING)
         ]
@@ -130,9 +132,22 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
+  void _reloadMovie() {
+    GetMovie getMovie = InteractorsProvider.getMovieInteractor();
+    getMovie.id = _movieState.id;
+    getMovie.execute()
+      .then(_onMovieReloaded);
+  }
+
+  void _onMovieReloaded(Movie movie) {
+    setState(() {
+      _movieState = movie;
+    });
+  }
+
   void _loadDetail() {
     GetDetail getDetail = InteractorsProvider.getDetailInteractor();
-    getDetail.id = widget._movie.id;
+    getDetail.id = _movieState.id;
     getDetail.execute()
       .then(_onDetailLoadSuccess)
       .catchError(_onError);
@@ -146,7 +161,7 @@ class _DetailPageState extends State<DetailPage> {
 
   void _loadCredits() {
     GetCredits getCredits = InteractorsProvider.getCreditsInteractor();
-    getCredits.id = widget._movie.id;
+    getCredits.id = _movieState.id;
     getCredits.execute()
       .then(_onCreditsLoadSuccess)
       .catchError(_onError);
@@ -180,7 +195,7 @@ class _DetailPageState extends State<DetailPage> {
 
   void _onFabClick() {
     SetFavorite setFavorite = InteractorsProvider.getFavoriteInteractor();
-    setFavorite.movie = _movieState;
+    setFavorite.id = _movieState.id;
     setFavorite.execute()
       .then(_onSetFavoriteSuccess)
       .catchError(_onError);

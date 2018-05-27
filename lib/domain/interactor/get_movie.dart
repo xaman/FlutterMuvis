@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:fluttermuvis/data/repository.dart';
 import 'package:fluttermuvis/domain/interactor/interactor.dart';
-import 'package:fluttermuvis/domain/model/detail.dart';
+import 'package:fluttermuvis/domain/model/movie.dart';
 
-class GetDetail extends Interactor<Detail> {
+
+class GetMovie extends Interactor<Movie> {
+
+  GetMovie(this._repository);
 
   Repository _repository;
 
   int id;
 
-  GetDetail(this._repository);
-
   @override
-  Future<Detail> execute() => _repository.getDetail(id);
+  Future<Movie> execute() => _repository.getMovie(id);
 
 }

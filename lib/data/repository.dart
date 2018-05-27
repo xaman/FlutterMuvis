@@ -8,10 +8,12 @@ abstract class Repository {
 
   Future<List<Movie>> getMovies(int page);
 
+  Future<Movie> getMovie(int id);
+
   Future<Detail> getDetail(int id);
 
   Future<List<Cast>> getCredits(int id);
 
-  Future<Movie> setFavorite(Movie movie);
+  Future<Movie> setFavorite(int id);
 
 }

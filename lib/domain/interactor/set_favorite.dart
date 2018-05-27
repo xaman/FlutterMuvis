@@ -8,11 +8,11 @@ class SetFavorite extends Interactor<Movie> {
 
   Repository _repository;
 
-  Movie movie;
+  int id;
 
   SetFavorite(this._repository);
 
   @override
-  Future<Movie> execute() => _repository.setFavorite(movie);
+  Future<Movie> execute() => _repository.setFavorite(id);
 
 }

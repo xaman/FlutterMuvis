@@ -67,26 +67,6 @@ class Movie {
     return Config.PICTURE_URL + size.value + _backdropPath;
   }
 
-  Movie clone({id, title, originalTitle, originalLanguage, overview, releaseDate, forAdults, popularity, votesCount, votesAverage, posterPath, backdropPath, favorite, detail}) {
-    return new Movie(
-      id ?? _id,
-      title ?? _title,
-      originalTitle ?? _originalTitle,
-      originalLanguage ?? _originalLanguage,
-      overview ?? _overview,
-      releaseDate ?? _releaseDate,
-      forAdults ?? _forAdults,
-      popularity ?? _popularity,
-      votesCount ?? _votesCount,
-      votesAverage ?? _votesAverage,
-      posterPath ?? _posterPath,
-      backdropPath ?? _backdropPath,
-      favorite ?? _isFavorite,
-      detail ?? _detail);
-  }
-
-
-
   @override
   String toString() {
     return 'Movie{id: $id, title: $title, originalTitle: $originalTitle, originalLanguage: $originalLanguage, overview: $overview, releaseDate: $releaseDate, forAdults: $forAdults, popularity: $popularity, votesCount: $votesCount, votesAverage: $votesAverage, posterPath: $posterPath, isFavourite: $isFavorite, detail: $detail}';

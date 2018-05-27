@@ -1,4 +1,5 @@
 import 'package:fluttermuvis/data/data_provider.dart';
+import 'package:fluttermuvis/domain/interactor/get_movie.dart';
 import 'package:fluttermuvis/domain/interactor/get_movies.dart';
 import 'package:fluttermuvis/domain/interactor/get_detail.dart';
 import 'package:fluttermuvis/domain/interactor/get_credits.dart';
@@ -10,6 +11,10 @@ class InteractorsProvider {
 
   static GetMovies getMoviesInteractor() {
     return new GetMovies(_repository);
+  }
+
+  static GetMovie getMovieInteractor() {
+    return new GetMovie(_repository);
   }
 
   static GetDetail getDetailInteractor() {

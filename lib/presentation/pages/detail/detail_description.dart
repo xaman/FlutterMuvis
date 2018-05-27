@@ -33,7 +33,7 @@ class DetailDescription extends StatelessWidget {
         padding: new EdgeInsets.all(_DETAIL_PADDING),
         child: new Row(
           children: <Widget>[
-            _createPoster(_movie.posterPath),
+            _createPoster(_movie?.posterPath),
             new HorizontalPadding(_HORIZONTAL_PADDING),
             new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +41,7 @@ class DetailDescription extends StatelessWidget {
                 _getTitle(context),
                 new VerticalPadding(_VERTICAL_PADDING),
                 _getRating(),
-                _getInfo(context, _movie.releaseYear),
+                _getInfo(context, _movie?.releaseYear),
                 _getInfo(context, _detail?.runtime),
                 _getInfo(context, _detail?.genres),
                 _getInfo(context, _detail?.country)
@@ -57,7 +57,7 @@ class DetailDescription extends StatelessWidget {
     return new SizedBox(
       width: _getTitleMaxWidth(context),
       child: new Text(
-        _movie.title,
+        _movie?.title ?? "",
         style: new TextStyle(color: ThemeColors.concrete, fontSize: _TITLE_SIZE),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
@@ -91,7 +91,7 @@ class DetailDescription extends StatelessWidget {
         ),
         new Padding(padding: new EdgeInsets.only(left: 5.0)),
         new Text(
-          _movie.votesAverage.toString(),
+          _movie?.votesAverage?.toString() ?? "",
           style: new TextStyle(color: ThemeColors.strawberry, fontSize: _RATING_FONT_SIZE),
         ),
       ],
@@ -107,7 +107,7 @@ class DetailDescription extends StatelessWidget {
         child: new Stack(
           children: <Widget>[
             new Image.asset(Drawables.DEFAULT_MOVIE),
-            new PosterHero(_movie.posterPath),
+            new PosterHero(path),
           ]
         )
       )

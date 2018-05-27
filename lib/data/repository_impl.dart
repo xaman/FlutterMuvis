@@ -4,6 +4,7 @@ import 'package:fluttermuvis/data/api.dart';
 import 'package:fluttermuvis/data/cache.dart';
 import 'package:fluttermuvis/data/entity/movie_entity.dart';
 import 'package:fluttermuvis/data/repository.dart';
+import 'package:fluttermuvis/domain/exceptions/movie_not_found_exception.dart';
 import 'package:fluttermuvis/domain/model/movie.dart';
 import 'package:fluttermuvis/domain/model/detail.dart';
 import 'package:fluttermuvis/domain/model/cast.dart';
@@ -17,6 +18,7 @@ class RepositoryImpl extends Repository {
 
   RepositoryImpl(this._api, this._cache);
 
+  @override
   Future<List<Movie>> getMovies(int page) {
     return _api.getMovies(_DEFAULT_YEAR, page)
       .then((entities) {
@@ -27,6 +29,14 @@ class RepositoryImpl extends Repository {
       });
   }
 
+  @override
+  Future<Movie> getMovie(int id) {
+    MovieEntity entity = _cache.getById(id);
+    return entity != null ? new Future.value(entity.toDomain()) :
+    new Future.error(new MovieNotFoundException());
+  }
+
+  @override
   Future<Detail> getDetail(int id) {
     MovieEntity entity = _cache.getById(id);
     return entity.detail == null ?
@@ -40,14 +50,17 @@ class RepositoryImpl extends Repository {
       return entity.toDomain();
     });
 
-
+  @override
   Future<List<Cast>> getCredits(int id) => _api.getCredits(id)
     .then((entities) {
       return entities.map((it) => it.toDomain()).toList();
     });
 
-  Future<Movie> setFavorite(Movie movie) {
-    return new Future(() => movie.clone(favorite: !movie.isFavorite));
+  @override
+  Future<Movie> setFavorite(int id) {
+    MovieEntity entity = _cache.getById(id);
+    entity.isFavorite = !entity.isFavorite;
+    return new Future.value(entity.toDomain());
   }
 
 }

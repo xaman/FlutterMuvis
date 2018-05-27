@@ -8,9 +8,9 @@ class GetCredits extends Interactor<List<Cast>> {
 
   Repository _repository;
 
-  GetCredits(this._repository);
+  int id;
 
-  int id = 1;
+  GetCredits(this._repository);
 
   @override
   Future<List<Cast>> execute() => _repository.getCredits(id);

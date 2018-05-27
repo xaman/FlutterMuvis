@@ -47,8 +47,8 @@ class MovieEntity extends Object with _$MovieEntitySerializerMixin {
 
   DetailEntity detail;
 
-  bool isFavorite;
-
+  @JsonKey(name: 'favorite', nullable: false, fromJson: _isFavoriteFromJson)
+  bool isFavorite = false;
 
   factory MovieEntity.fromJson(Map<String, dynamic> json) => _$MovieEntityFromJson(json);
 
@@ -69,3 +69,5 @@ class MovieEntity extends Object with _$MovieEntitySerializerMixin {
     detail?.toDomain()
   );
 }
+
+bool _isFavoriteFromJson(bool favorite) => favorite ?? false;

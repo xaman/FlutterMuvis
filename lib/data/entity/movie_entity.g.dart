@@ -23,7 +23,7 @@ MovieEntity _$MovieEntityFromJson(Map<String, dynamic> json) =>
       ..detail = json['detail'] == null
           ? null
           : new DetailEntity.fromJson(json['detail'] as Map<String, dynamic>)
-      ..isFavorite = json['isFavorite'] as bool;
+      ..isFavorite = _isFavoriteFromJson(json['favorite'] as bool);
 
 abstract class _$MovieEntitySerializerMixin {
   int get id;
@@ -54,6 +54,6 @@ abstract class _$MovieEntitySerializerMixin {
         'poster_path': posterPath,
         'backdrop_path': backdropPath,
         'detail': detail,
-        'isFavorite': isFavorite
+        'favorite': isFavorite
       };
 }
